@@ -20,6 +20,8 @@
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
+       (pretty-code
+        +fira)
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -67,7 +69,8 @@
         +dragndrop       ; drag & drop files/images into org buffers
         +jupyter        ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
-        +present)        ; using org-mode for presentations
+        +present
+        +roam)        ; using org-mode for presentations
        python            ; beautiful is better than ugly
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        web               ; the tubes

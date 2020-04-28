@@ -6,9 +6,14 @@
 (setq doom-font (font-spec :family "Fira Code Retina" :size 14))
 (setq doom-theme 'doom-dracula)
 
+;(setq tramp-default-remote-shell 'fish)
 (setq org-directory "~/org/")
+(setq org-roam-directory "~/org/roam")
+
 (after! org
   (setq ob-async-no-async-languages-alist '("jupyter-julia" "jupyter-clojure" "jupyter-python")))
+(after! tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
 (setq display-line-numbers-type t)
 (setq projectile-project-search-path `("~/Projects" "~/src"))
