@@ -6,7 +6,6 @@
 (setq doom-font (font-spec :family "Fira Code Retina" :size 14))
 (setq doom-theme 'doom-dracula)
 
-;(setq tramp-default-remote-shell 'fish)
 (setq org-directory "~/org/")
 (setq org-roam-directory "~/org/roam")
 
