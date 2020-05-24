@@ -5,12 +5,15 @@
 
 (setq doom-font (font-spec :family "Fira Code Retina" :size 14))
 (setq doom-theme 'doom-dracula)
+(setq doom-treemacs-use-generic-icons nil)
 
 (setq org-directory "~/org/")
 (setq org-roam-directory "~/org/roam")
 
 (after! org
-  (setq ob-async-no-async-languages-alist '("jupyter-julia" "jupyter-clojure" "jupyter-python")))
+  (setq ob-async-no-async-languages-alist '("jupyter-julia" "jupyter-clojure" "jupyter-python"))
+  (require 'org-roam-protocol))
+
 (after! tramp
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
@@ -48,6 +51,7 @@
  :ni "H-w" #'sp-wrap-round
  :ni "H-u" #'sp-unwrap-sexp
  :ni "H-[" #'sp-wrap-square
+ :ni "H-{" #'sp-wrap-curly
  :ni "H-j" #'sp-join-sexp
  :ni "H-|" #'sp-split-sexp)
 

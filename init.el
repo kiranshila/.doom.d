@@ -26,7 +26,7 @@
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
        (format +onsave)  ; automated prettiness
-                                        ; editing in many places at once
+       multiple-cursors                                 ; editing in many places at once
        rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
        word-wrap         ; soft wrapping with language-aware indent
@@ -38,7 +38,8 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       vterm             ; another terminals in Emacs
+       (vterm
+        +toggle)             ; another terminals in Emacs
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
@@ -54,6 +55,7 @@
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
+       pdf               ; portable?
 
        :lang
        clojure           ; java with a lisp
@@ -68,10 +70,12 @@
         +jupyter        ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
         +present
-        +roam)        ; using org-mode for presentations
+        +roam
+        +hugo)        ; using org-mode for presentations
        python            ; beautiful is better than ugly
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        web               ; the tubes
+       rest
 
        :config
        (default +bindings +smartparens))
