@@ -76,6 +76,8 @@
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        web               ; the tubes
        rest
+       (rust
+        +lsp)
 
        :config
        (default +bindings +smartparens))
