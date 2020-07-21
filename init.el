@@ -1,7 +1,8 @@
 (doom!
        :completion
        company           ; the ultimate code completion backend
-       ivy               ; a search engine for love and life
+       (ivy
+        +icons)               ; a search engine for love and life
 
        :ui
        doom              ; what makes DOOM look the way it does
@@ -25,7 +26,7 @@
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+       format  ; automated prettiness
        multiple-cursors                                 ; editing in many places at once
        rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
@@ -47,7 +48,8 @@
        grammar           ; tasing grammar mistake every you make
 
        :tools
-       debugger          ; FIXME stepping through code, to help you add bugs
+       (debugger
+        +lsp)          ; FIXME stepping through code, to help you add bugs
        (eval +overlay)     ; run code, run (also, repls)
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
@@ -63,7 +65,11 @@
        emacs-lisp         ; drown in parentheses
        javascript        ; all(hope(abandon(ye(who(enter(here))))))
        julia             ; a better, faster MATLAB
-       latex             ; writing papers in Emacs has never been so fun
+       (latex
+        +latexmk
+        +cdlatex
+        +lsp
+        +fold)             ; writing papers in Emacs has never been so fun
        markdown          ; writing docs for people to ignore
        (org              ; organize your plain life in plain text
         +dragndrop       ; drag & drop files/images into org buffers
@@ -72,7 +78,10 @@
         +present
         +roam
         +hugo)        ; using org-mode for presentations
-       python            ; beautiful is better than ugly
+       (python
+        +lsp
+        +pyenv
+        +poetry)            ; beautiful is better than ugly
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        web               ; the tubes
        rest
