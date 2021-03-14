@@ -1,5 +1,6 @@
 (package! impatient-mode)
 (package! evil-cleverparens)
+(package! evil-smartparens)
 (package! ox-ipynb :recipe (:type git :host github :repo "jkitchin/ox-ipynb"))
 (package! org-ref)
 (package! org-roam-bibtex)
@@ -7,5 +8,3 @@
 (package! org-noter)
 (package! citeproc-org)
 (unpin! vterm)
-;(unpin! cider)
-;(unpin! clojure-mode)

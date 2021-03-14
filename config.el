@@ -3,58 +3,27 @@
 (setq user-full-name "Kiran Shila"
       user-mail-address "me@kiranshila.com")
 
+(setq! eglot-connect-timeout 60)
+
+;; Julia setup
+(after! julia-repl
+  (julia-repl-set-terminal-backend 'vterm))
+  ;(setq vterm-kill-buffer-on-exit nil)
+  (setq eglot-jl-language-server-project "~/.julia/environments/v1.6")
+
 (setenv "SSH_AUTH_SOCK" (string-trim (shell-command-to-string "gpgconf --list-dirs agent-ssh-socket")))
 
-(setq doom-font (font-spec :family "Fira Code Retina" :size 14))
+(setq doom-font (font-spec :family "Fira Code Retina")
+      doom-unicode-font (font-spec :family "JuliaMono Medium"))
+
 (setq doom-theme 'doom-dracula)
 (setq doom-treemacs-use-generic-icons nil)
 
-; Python tools
+                                        ; Python tools
 (setenv "PATH" (concat (getenv "PATH") "~/.pyenv/libexec"))
 (setq exec-path (append exec-path '("~/.pyenv/libexec")))
 (setenv "PATH" (concat (getenv "PATH") "~/.poetry/bin"))
 (setq exec-path (append exec-path '("~/.poetry/bin")))
-(with-eval-after-load 'lsp-mode  ; try this or similar
-    (lsp-register-custom-settings '(("pyls.plugins.pyls_mypy.enabled" t t))))
-(with-eval-after-load 'lsp-mode  ; try this or similar
-    (lsp-register-custom-settings '(("pyls.plugins.pyls_mypy.enabled" t t))))
-
-;; (defun dap-poetry-python--populate-start-file-args (conf)
-;;   "Populate CONF with the required arguments."
-;;   (let* ((host "localhost")
-;;          (debug-port (dap--find-available-port))
-;;          (python-args (or (plist-get conf :args) ""))
-;;          (program (or (plist-get conf :target-module)
-;;                       (plist-get conf :program)
-;;                       (buffer-file-name)))
-;;          (module (plist-get conf :module)))
-
-;;     (plist-put conf :program-to-start
-;;                (format "%s poetry run python -m ptvsd --wait --host %s --port %s %s %s %s"
-;;                        (or dap-python-terminal "")
-;;                        host
-;;                        debug-port
-;;                        (if module (concat "-m " (shell-quote-argument module)) "")
-;;                        (shell-quote-argument program)
-;;                        python-args))
-;;     (plist-put conf :program program)
-;;     (plist-put conf :debugServer debug-port)
-;;     (plist-put conf :port debug-port)
-;;     (plist-put conf :hostName host)
-;;     (plist-put conf :host host)
-;;     conf))
-
-;; (dap-register-debug-provider "poetry-python" 'dap-poetry-python--populate-start-file-args)
-
-;; (dap-register-debug-template "Python-Poetry :: Run file (buffer)"
-;;                              (list :type "poetry-python"
-;;                                    :args ""
-;;                                    :cwd nil
-;;                                    :module nil
-;;                                    :program nil
-;;                                    :request "launch"
-;;                                    :name "Python-Poetry :: Run file (buffer)"))
-
 
 (setq org-directory "~/org/")
 (setq org-roam-directory "~/org/roam")
@@ -62,15 +31,8 @@
 (remove-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'message-mode-hook #'word-wrap-mode)
 
-(use-package! org-noter
-  :after org
-  :config (setq org-noter-notes-search-path '("~/org")))
-
-(use-package! citeproc-org
-  :ensure t
-  :after ox-hugo
-  :config
-  (citeproc-org-setup))
+(eval-after-load "preview"
+  '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
 
 (setq-default
  reftex-default-bibliography '("~/Dropbox/Bibliographies/main.bib")
@@ -81,6 +43,9 @@
 
 (after! org
   (setq ob-async-no-async-languages-alist '("jupyter-julia" "jupyter-clojure" "jupyter-python"))
+  (setq org-latex-compiler "xelatex")
+  (setq org-latex-pdf-process '("%latex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (setq org-latex-listings 'minted)
   (require 'org-roam-protocol)
   (require 'org-ref)
   (require 'org-ref-ivy-cite)
@@ -113,7 +78,7 @@
 (setq display-line-numbers-type t)
 (setq projectile-project-search-path `("~/Projects" "~/src"))
 
-(setq-default evil-escape-key-sequence "fd")
+(setq-default evil-escape-key-sequence "jk")
 
 (use-package! impatient-mode
   :defer t)
@@ -144,11 +109,10 @@
 (with-eval-after-load 'cider
   (setq cider-repl-pop-to-buffer-on-connect t))
 
-;; Fix the smartparen backspace strict mode stuff
-(map! :mode clojure-mode (:i "<backspace>" #'backward-delete-char-untabify))
 ;; Add some hooks to the clojure mode
 (add-hook! clojure-mode #'(smartparens-strict-mode
-                           evil-cleverparens-mode))
+                           evil-cleverparens-mode
+                           evil-smartparens-mode))
 
 ;; Define my "Hyper" key
 (setq ns-right-option-modifier 'hyper)
@@ -171,7 +135,7 @@
 (map!
  ;; Comma for shortcut to local-leader
  :n "," (cmd! (push (cons t ?m) unread-command-events)
-                 (push (cons t 32) unread-command-events))
+              (push (cons t 32) unread-command-events))
  (:leader
   (:prefix "b"
    :desc "Previous buffer (Spacemacs)" :n "p" #'previous-buffer
