@@ -3,7 +3,6 @@
 #+DATE: <2021-03-22 Mon>
 
 #+property: header-args:emacs-lisp :tangle yes :cache yes :results silent :comments link
-#+property: header-args:shell :tangle "setup.sh"
 #+property: header-args :tangle no :results silent
 
 * Initial Configuration
@@ -104,6 +103,9 @@ I love smartparens. I love it so much that I have a key on my keyboard that only
 
 ** DOOM
 *** Modules
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle no
+:END:
 Organizing the modules into separate tangle groups, for fun!
 #+name: init.el
 #+begin_src emacs-lisp :tangle "init.el" :noweb no-export :comments none
@@ -217,8 +219,7 @@ debugger                     ; FIXME stepping through code, to help you add bugs
  +docsets)                   ; ...or in Dash docsets locally
 (lsp                         ; Language Server Protocol
  +elgot)                     ; Because LSP mode is lame
-(docker                      ; Contain yourself
- +lsp)
+docker                       ; Contain yourself
 magit                        ; a git porcelain for Emacs
 make                         ; run make tasks from Emacs
 pass                         ; password manager for nerds
@@ -391,23 +392,6 @@ org-ref is a must
 Then all the things for org-roam
 #+begin_src emacs-lisp
 (package! org-roam-bibtex)
-#+end_src
-#+begin_src emacs-lisp :tangle yes
-(use-package org-roam-server
-  :after (org-roam server)
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 8078
-        org-roam-server-export-inline-images t
-        org-roam-server-authenticate nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20)
-  (defun org-roam-server-open ()
-    "Ensure the server is active, then open the roam graph."
-    (interactive)
-    (org-roam-server-mode 1)
-    (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))
 #+end_src
 *** Systemd
 For editing systemd unit files
