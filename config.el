@@ -13,20 +13,14 @@
 
 (setenv "SSH_AUTH_SOCK" (string-trim (shell-command-to-string "gpgconf --list-dirs agent-ssh-socket")))
 
-(setq doom-font (font-spec :family "Fira Code Retina")
-      doom-unicode-font (font-spec :family "JuliaMono Medium"))
+(setq doom-font (font-spec :family "Fira Code Retina"
+                           :size 14)
+      doom-unicode-font (font-spec :family "JuliaMono Medium"
+                                   :size 14))
 
 (setq doom-theme 'doom-dracula)
 (setq doom-treemacs-use-generic-icons nil)
 
-                                        ; Python tools
-(setenv "PATH" (concat (getenv "PATH") "~/.pyenv/libexec"))
-(setq exec-path (append exec-path '("~/.pyenv/libexec")))
-(setenv "PATH" (concat (getenv "PATH") "~/.poetry/bin"))
-(setq exec-path (append exec-path '("~/.poetry/bin")))
-
-(setq org-directory "~/org/")
-(setq org-roam-directory "~/org/roam")
 
 (remove-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'message-mode-hook #'word-wrap-mode)
@@ -40,6 +34,9 @@
  bibtex-completion-bibliography "~/Dropbox/Bibliographies/main.bib"
  bibtex-completion-library-path "~/Dropbox/Bibliographies/"
  org-ref-pdf-directory "~/Dropbox/Bibliographies/")
+
+(setq org-directory "~/org/")
+(setq org-roam-directory "~/org/roam")
 
 (after! org
   (setq ob-async-no-async-languages-alist '("jupyter-julia" "jupyter-clojure" "jupyter-python"))

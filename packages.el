@@ -6,5 +6,4 @@
 (package! org-roam-bibtex)
 (package! ivy-bibtex)
 (package! org-noter)
-(package! citeproc-org)
-(unpin! vterm)
+(unpin! clojure-mode)
